@@ -21,7 +21,11 @@
 ```
 目標：將我們所獲得的景點進行Rating
 
-作法：在我們擁有的資料當中基本上幾乎都是字，因此我們的作法就是做text mining，用類似IR 的方式去尋找我們的Recall，這邊我們使用的作法是借用tf-idf 的想法做term_count，我們是藉由景點的名稱作為relevant document的基礎，不過由於景點名稱並不一定存在於pixnet 或是ptt 的文本裡面，所以我們先把我們需要的文本先切出來然後去找relevant 的文章（用標題去做match），藉此獲得我們定義的relevant document，那獲得了relevant document 之後再把content 抽出來（也就是文章內容），變成新的文本，然後反向把景點名稱一個一個下去找，做term_count這樣我們就可以獲得排名。
+作法：在我們擁有的資料當中基本上幾乎都是字，因此我們的作法就是做text mining，用類似IR 的方式去尋找我們的Recall，
+這邊我們使用的作法是借用tf-idf 的想法做term_count，我們是藉由景點的名稱作為relevant document的基礎，
+不過由於景點名稱並不一定存在於pixnet 或是ptt 的文本裡面，所以我們先把我們需要的文本先切出來然後去找relevant 的文章（用標題去做match），
+藉此獲得我們定義的relevant document，那獲得了relevant document 之後再把content 抽出來（也就是文章內容），變成新的文本，
+然後反向把景點名稱一個一個下去找，做term_count這樣我們就可以獲得排名。
 ```
 
 
