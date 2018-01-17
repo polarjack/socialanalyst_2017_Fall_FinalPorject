@@ -11,12 +11,12 @@
 
 
 2. PTT Japan_Travel
-敘述：藉由<https://github.com/jwlin/ptt-web-crawler.git> 抓取6～8月份的資料，詳細的區間並不準確因為是用文章編號在抓並不是用時間
+敘述：藉由 ptt爬蟲 抓取6～8月份的資料，詳細的區間並不準確因為是用文章編號在抓並不是用時間
 
-3. 景點名稱，經緯度
+3. 景點名稱，經緯度 Target
 由兩位組員手動蒐集867個景點，非常辛苦
 ```
-
+[ptt爬蟲](https://github.com/jwlin/ptt-web-crawler.git)
 # Main Idea
 ```
 目標：將我們所獲得的景點進行Rating
@@ -31,11 +31,30 @@
 
 # Step 1 csv to json
 ```
-csv 對於程式來說（javascript, python ）是個很難讀的東西，我跟我的組員們基本上都偏好用JSON所以就全部先parse 成JSON，這邊處理的只有pixnet的部份因為ptt 爬下來就已經是json了
+csv 對於程式來說（這邊是指對 javascript, python）是個很難讀的東西，
+我跟我的組員們基本上都偏好用JSON所以就全部先parse 成JSON，這邊處理的只有pixnet的部份因為ptt 爬下來就已經是json了
 ```
 
-# Step 2 Work Tokenize through Jieba
+# Step 2 Word Tokenize (Target) through Jieba
 ```
 先處理景點的斷詞，想法是把景點的名稱斷詞然後建成一個term_counts 的base，以代表我們所想要獲得的資訊
 ``` 
 
+# Step 3 Attribute Word Tokenize & fetch with Target
+```
+有了Step 2 build 建構出來的目標字典，分別對pixnet, ptt的文章標題進行Word Tokenize 以及fetch 
+只要有出現就會將其抽出來變成下個階段所需要的content index
+```
+
+# Step 4 Content Word Tokenize & terms Count
+```
+將pixnet, ptt filter 文章分別對他們的content進行斷詞然後建立terms_count, 所以會出現兩份資料。
+再來將Target 一個一個抽出來然後個別斷，將斷完的結果與上述的兩個terms_count 進行比較然後加總，就可以獲得每個景點的量
+```
+
+# Step 5 Visualization Data through Google Map Api
+```
+使用google Map api 製作網站並以step 4所獲得的量畫圖，
+量在圖上就是半徑的大小，並且佐以東京地鐵還有場館一併疊圖
+```
+[東京景點圖](https://polarjack.github.io/socialdatademo/)
